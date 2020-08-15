@@ -4,15 +4,11 @@ admin.initializeApp();
 const db = admin.firestore();
 
 export const getAllWords = functions.https.onRequest((request, response) => {
-    const docRef = db.collection('words').doc('wordId');
-    docRef.get()
-        .then(doc => {
-            if (!doc.exists) {
-                console.log('No such document!');
-                return response.send('Not Found')
-            }
-            console.log(doc.data());
-            return response.send(doc.data());
+    const words = db.collection('words');
+    words.get()
+        .then(collection => {
+            console.log(collection.docs);
+            return response.send(collection.docs);
         })
         .catch(err => {
             console.log('Error getting document', err);
