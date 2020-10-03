@@ -12,6 +12,6 @@ export const addWord = functions.https.onRequest((request, response) => {
 
     // Add a new document in collection 'words' a random UUID
     db.collection('words').doc(uuidv4()).set(word).then(document => {
-        return document
+        response.status(200).send(document);
     });
 });
